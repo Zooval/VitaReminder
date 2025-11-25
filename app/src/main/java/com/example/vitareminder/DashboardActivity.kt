@@ -1,27 +1,35 @@
 package com.example.vitareminder
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // enableEdgeToEdge() // Puedes comentar o eliminar esto si causa problemas con la BottomNavigationView
         setContentView(R.layout.activity_dashboard)
+
+        /*
+        // Este bloque ajusta los paddings para la pantalla completa (edge-to-edge).
+        // A veces puede interferir con la posición de la BottomNavigationView.
+        // Si la barra de navegación se ve mal, puedes probar comentando este bloque.
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        */
 
-        // --- INICIO DE LA LÓGICA ---
+        // --- INICIO DE LA LÓGICA EXISTENTE ---
         val medicamentosContainer: LinearLayout = findViewById(R.id.medicamentosContainer)
 
         // 1. Recibir el objeto Medicamento del Intent
@@ -46,6 +54,38 @@ class DashboardActivity : AppCompatActivity() {
             tvHorario.text = med.horario
 
             medicamentosContainer.addView(itemView)
+        }
+
+        // --- INICIO DE LA LÓGICA DE LA BARRA DE NAVEGACIÓN ---
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        // Marcar el ítem "Para hoy" como seleccionado por defecto al iniciar la pantalla
+        bottomNavigationView.selectedItemId = R.id.navigation_today
+
+        // Configurar el listener para manejar los clics en los ítems del menú
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_treatments -> {
+                    // Acción para "Tratamientos": Iniciar la Activity de Tratamientos
+                    val intent = Intent(applicationContext, TreatmentsActivity::class.java)
+                    startActivity(intent)
+                    // Anulamos la animación de transición para que el cambio parezca más fluido
+                    overridePendingTransition(0, 0)
+                    true // Devuelve true para indicar que el evento fue manejado
+                }
+                R.id.navigation_today -> {
+                    // Ya estamos en esta pantalla, no es necesario hacer nada.
+                    // Devuelve true para mantener el ítem seleccionado.
+                    true
+                }
+                else -> {
+                    // Para los otros botones ("Progreso", "Historial"), mostrar un mensaje temporal
+                    Toast.makeText(this, "Función no implementada", Toast.LENGTH_SHORT).show()
+                    // Devuelve false para que el ítem no se seleccione al hacer clic
+                    false
+                }
+            }
         }
     }
 }
