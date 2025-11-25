@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <!-- Colores base de la App -->
+    <color name="colorPrimary">#C72C7D</color>
+    <color name="colorPrimaryVariant">#A12565</color> <!-- Un tono un poco más oscuro para la barra de estado, etc. -->
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- Colores de Texto -->
+    <color name="textColorPrimary">#333333</color> <!-- Para la mayoría de los textos -->
+    <color name="textColorSecondary">#888888</color> <!-- Para textos de pistas (hints) o subtítulos -->
+
+    <!-- Colores de Fondo -->
+    <color name="background">#FFFFFF</color>
+    <color name="input_field_background">#F5F5F5</color> <!-- Fondo gris claro para los campos de texto -->
+
+    <!-- Colores estándar -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
