@@ -1,16 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
-    <!-- Colores base de la App -->
-    <color name="colorPrimary">#C72C7D</color>
-    <color name="colorPrimaryVariant">#A12565</color> <!-- Un tono un poco más oscuro para la barra de estado, etc. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores Temática Salud/Farmacia (Limpios y Confiables) -->
+    <color name="colorPrimary">#009688</color> <!-- Verde Turquesa / Teal -->
+    <color name="colorPrimaryVariant">#00695C</color> <!-- Teal Oscuro para barras -->
     <color name="colorOnPrimary">#FFFFFF</color>
 
-    <!-- Colores de Texto -->
-    <color name="textColorPrimary">#333333</color> <!-- Para la mayoría de los textos -->
-    <color name="textColorSecondary">#888888</color> <!-- Para textos de pistas (hints) o subtítulos -->
+    <!-- Colores de Acento (Para alertas de "Toma tu pastilla") -->
+    <color name="colorAccent">#FF7043</color> <!-- Naranja Coral suave (llama la atención sin agredir) -->
 
-    <!-- Colores de Fondo -->
+    <!-- Colores de Texto (Máxima Legibilidad) -->
+    <color name="textColorPrimary">#263238</color> <!-- Gris Azulado muy oscuro -->
+    <color name="textColorSecondary">#546E7A</color> <!-- Gris Azulado medio -->
+
+    <!-- Colores de Fondo (Ambiente Clínico y Limpio) -->
     <color name="background">#FFFFFF</color>
-    <color name="input_field_background">#F5F5F5</color> <!-- Fondo gris claro para los campos de texto -->
+    <color name="input_field_background">#F1F8E9</color> <!-- Verde menta clarísimo para campos -->
 
     <!-- Colores estándar -->
     <color name="black">#FF000000</color>

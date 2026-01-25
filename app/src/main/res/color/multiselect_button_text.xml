@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android"><!-- Estado: cuando el botón está marcado (seleccionado) -->
-    <item android:color="@color/white" android:state_checked="true" />
-    <!-- Estado por defecto: cuando no está marcado -->
-    <item android:color="@color/textColorPrimary" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Texto oscuro cuando el botón está seleccionado (fondo gris claro #E0E0E0) -->
+    <item android:color="@color/textColorPrimary" android:state_checked="true" />
+    <!-- Texto blanco cuando el botón no está seleccionado (fondo colorPrimary #7E57C2) -->
+    <item android:color="@color/white" />
 </selector>
-    

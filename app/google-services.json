@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621985710317",
+    "project_id": "proyectovitareminder",
+    "storage_bucket": "proyectovitareminder.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621985710317:android:a6d58367e9e9470a124ce4",
+        "android_client_info": {
+          "package_name": "com.example.vitareminder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK6BLm3LNir40BlquSV2b9spPJP-93EwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
