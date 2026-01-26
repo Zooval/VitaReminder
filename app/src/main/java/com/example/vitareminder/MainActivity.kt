@@ -1,34 +1,48 @@
-package com.example.vitareminder // Asegúrate que este sea tu paquete
+package com.example.vitareminder
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
+    
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Vincula este archivo de código con su layout XML
+        
+        // Inicializar Firebase Auth
+        auth = FirebaseAuth.getInstance()
+
+        // --- VERIFICAR SESIÓN ACTIVA ---
+        // Si el usuario ya está logueado, saltamos directo al Dashboard
+        if (auth.currentUser != null) {
+            irADashboard()
+            return // Salimos del onCreate para no cargar el layout de bienvenida
+        }
+
         setContentView(R.layout.activity_main)
 
-        // 1. Encontrar los botones en el layout por su ID
         val loginButton: Button = findViewById(R.id.loginButton)
         val registerButton: Button = findViewById(R.id.registerButton)
 
-        // 2. Asignar un "listener" al botón de Ingresar
         loginButton.setOnClickListener {
-            // Crea una intención (Intent) para abrir LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
-            // Inicia la nueva actividad
             startActivity(intent)
         }
 
-        // 3. Asignar un "listener" al botón de Registrarse
         registerButton.setOnClickListener {
-            // Crea una intención para abrir RegisterActivity
             val intent = Intent(this, RegisterActivity::class.java)
-            // Inicia la nueva actividad
             startActivity(intent)
         }
+    }
+
+    private fun irADashboard() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }

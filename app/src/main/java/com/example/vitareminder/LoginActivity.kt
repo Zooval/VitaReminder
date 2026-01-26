@@ -1,72 +1,79 @@
 package com.example.vitareminder
 
-import android.content.Intent // Asegúrate de que esta importación esté presente
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
+        
+        auth = FirebaseAuth.getInstance()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // --- INICIO DE LA LÓGICA DE VALIDACIÓN ---
-
-        // 1. Obtener referencias a los componentes del layout
         val emailInputLayout: TextInputLayout = findViewById(R.id.emailInputLayout)
         val passwordInputLayout: TextInputLayout = findViewById(R.id.passwordInputLayout)
         val loginButton: Button = findViewById(R.id.loginButton)
 
-        // 2. Configurar el listener para el botón de Ingresar
         loginButton.setOnClickListener {
-            // Limpiamos errores previos al hacer clic
+            val email = emailInputLayout.editText?.text.toString().trim()
+            val password = passwordInputLayout.editText?.text.toString().trim()
+
             emailInputLayout.error = null
             passwordInputLayout.error = null
 
-            // Extraemos el texto de los campos de entrada
-            val email = emailInputLayout.editText?.text.toString()
-            val password = passwordInputLayout.editText?.text.toString()
-
             var isValid = true
 
-            // 3. Validar el campo de email
             if (email.isEmpty()) {
                 emailInputLayout.error = "El email no puede estar vacío"
                 isValid = false
-            } else if (!email.contains("@")) {
-                emailInputLayout.error = "Email no válido"
-                isValid = false
             }
 
-            // 4. Validar el campo de contraseña
             if (password.isEmpty()) {
                 passwordInputLayout.error = "La contraseña no puede estar vacía"
                 isValid = false
-            } else if (password.length < 6) {
-                passwordInputLayout.error = "La contraseña debe tener al menos 6 caracteres"
-                isValid = false
             }
 
-            // 5. Si todo es válido, navegar a la pantalla de Nuevo Tratamiento
             if (isValid) {
-                // Creamos la intención para ir a la siguiente pantalla
-                val intent = Intent(this, NuevoTratamientoActivity::class.java)
-                startActivity(intent)
-
-                // Opcional pero recomendado: Cierra LoginActivity para que el usuario no pueda
-                // volver a ella con el botón de "atrás" desde la pantalla principal.
-                finish()
+                loginUsuario(email, password)
             }
         }
+    }
+
+    private fun loginUsuario(email: String, pass: String) {
+        Toast.makeText(this, "Iniciando sesión...", Toast.LENGTH_SHORT).show()
+        
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    irADashboard()
+                } else {
+                    Toast.makeText(this, "Error de autenticación: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+
+    private fun irADashboard() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }
