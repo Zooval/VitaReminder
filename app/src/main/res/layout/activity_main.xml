@@ -12,7 +12,7 @@
         android:id="@+id/logoImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/vita_reminder"
         app:layout_constraintBottom_toTopOf="@+id/appNameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
