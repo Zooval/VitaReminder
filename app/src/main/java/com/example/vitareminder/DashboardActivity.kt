@@ -4,10 +4,15 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -20,6 +25,10 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dashboard)
 
         auth = FirebaseAuth.getInstance()
+
+        // --- CONFIGURACIÓN DE TOOLBAR ---
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         // --- LÓGICA DE MEDICAMENTOS ---
         val medicamentosContainer: LinearLayout = findViewById(R.id.medicamentosContainer)
@@ -44,50 +53,7 @@ class DashboardActivity : AppCompatActivity() {
             medicamentosContainer.addView(itemView)
         }
 
-        val actividadesContainer: LinearLayout = findViewById(R.id.actividadesContainer)
-
-        val actividad = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("EXTRA_ACTIVIDAD", Actividad::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra<Actividad>("EXTRA_ACTIVIDAD")
-        }
-
-        actividad?.let { act ->
-            val itemView = LayoutInflater.from(this)
-                .inflate(R.layout.item_actividad, actividadesContainer, false)
-
-            itemView.findViewById<TextView>(R.id.tvActividadNombre).text = act.nombre
-            itemView.findViewById<TextView>(R.id.tvActividadDetalle)
-                .text = "${act.duracion} · ${act.frecuencia}"
-
-            actividadesContainer.addView(itemView)
-        }
-
-        // --- LÓGICA DE CITAS ---
-        val citasContainer: LinearLayout = findViewById(R.id.citasContainer)
-
-        val cita = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("EXTRA_CITA", Cita::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra<Cita>("EXTRA_CITA")
-        }
-
-        cita?.let { c ->
-            val itemView = LayoutInflater.from(this)
-                .inflate(R.layout.item_cita, citasContainer, false)
-
-            itemView.findViewById<TextView>(R.id.tvCitaDoctor).text = c.doctor
-            itemView.findViewById<TextView>(R.id.tvCitaFecha).text = c.fecha
-            itemView.findViewById<TextView>(R.id.tvCitaHora).text = c.hora
-
-            citasContainer.addView(itemView)
-        }
-
-
-
-        // --- BARRA DE NAVEGACIÓN Y CERRAR SESIÓN ---
+        // --- BARRA DE NAVEGACIÓN INFERIOR ---
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.selectedItemId = R.id.navigation_today
 
@@ -100,10 +66,6 @@ class DashboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_today -> true
-                R.id.navigation_logout -> {
-                    cerrarSesion()
-                    true
-                }
                 else -> {
                     Toast.makeText(this, "Función no implementada", Toast.LENGTH_SHORT).show()
                     false
@@ -112,8 +74,47 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+    // --- LÓGICA DEL MENÚ SUPERIOR (TOOLBAR) ---
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_profile -> {
+                // Buscamos la vista del ícono para que el menú aparezca justo ahí
+                val view = findViewById<View>(R.id.action_profile)
+                mostrarMenuPerfil(view)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun mostrarMenuPerfil(anchor: View) {
+        val popup = PopupMenu(this, anchor)
+        popup.menuInflater.inflate(R.menu.menu_perfil, popup.menu)
+        
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_edit_profile -> {
+                    Toast.makeText(this, "Editar Perfil en desarrollo", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.action_logout -> {
+                    cerrarSesion()
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
+    }
+
     private fun cerrarSesion() {
-        auth.signOut() // Cierra la sesión en Firebase
+        auth.signOut()
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/navigation_today"
         android:icon="@drawable/tasks"
         android:title="Para hoy" />
-
     <item
         android:id="@+id/navigation_progress"
         android:icon="@drawable/progress"
         android:title="Progreso" />
-
     <item
         android:id="@+id/navigation_history"
         android:icon="@drawable/history"
         android:title="Historial" />
-
     <item
         android:id="@+id/navigation_treatments"
         android:icon="@drawable/medicine"
         android:title="Tratamientos" />
-
-    <item
-        android:id="@+id/navigation_logout"
-        android:icon="@android:drawable/ic_lock_power_off"
-        android:title="Salir" />
-
 </menu>
