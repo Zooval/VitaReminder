@@ -35,8 +35,8 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
 
             // Validación simple
             if (nombre.isNotEmpty() && tipo.isNotEmpty() && dosis.isNotEmpty() && horario.isNotEmpty()) {
-                // 1. Crear el objeto Medicamento con los datos
-                // 1️⃣ Crear el objeto Medicamento
+                // Crear el objeto Medicamento con los datos
+                // Crear el objeto Medicamento
                 val nuevoMedicamento = Medicamento(nombre, tipo, dosis, horario)
 
                 // Recuperar categorías seleccionadas
@@ -57,11 +57,11 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
                         Intent(this, DashboardActivity::class.java)
                 }
 
-// 5️⃣ Pasar datos a la siguiente pantalla
+                // Pasar datos a la siguiente pantalla
                 nextIntent.putExtra("EXTRA_MEDICAMENTO", nuevoMedicamento)
                 nextIntent.putStringArrayListExtra("CATEGORIES", categories)
 
-// 6️⃣ Ir a la siguiente pantalla
+                // Ir a la siguiente pantalla
                 startActivity(nextIntent)
                 finish()
 

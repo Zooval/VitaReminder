@@ -31,12 +31,12 @@ class AnadirCitaActivity : AppCompatActivity() {
 
         continueButton.setOnClickListener {
 
-            // 1️⃣ Leer datos
+            // Leer datos
             val doctor = doctorInputLayout.editText?.text.toString().trim()
             val fecha = dateInputLayout.editText?.text.toString().trim()
             val hora = timeInputLayout.editText?.text.toString().trim()
 
-            // 2️⃣ Validación
+            // Validación
             if (doctor.isEmpty() || fecha.isEmpty() || hora.isEmpty()) {
                 if (doctor.isEmpty()) doctorInputLayout.error = "Campo requerido" else doctorInputLayout.error = null
                 if (fecha.isEmpty()) dateInputLayout.error = "Campo requerido" else dateInputLayout.error = null
@@ -44,14 +44,14 @@ class AnadirCitaActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 3️⃣ Crear objeto Cita
+            // Crear objeto Cita
             val cita = Cita(doctor, fecha, hora)
 
-            // 4️⃣ Recuperar datos previos
+            // Recuperar datos previos
             val medicamento = intent.getParcelableExtra<Medicamento>("EXTRA_MEDICAMENTO")
             val actividad = intent.getParcelableExtra<Actividad>("EXTRA_ACTIVIDAD")
 
-            // 5️⃣ Ir al Dashboard
+            // Ir al Dashboard
             val dashboardIntent = Intent(this, DashboardActivity::class.java)
             dashboardIntent.putExtra("EXTRA_MEDICAMENTO", medicamento)
             dashboardIntent.putExtra("EXTRA_ACTIVIDAD", actividad)
