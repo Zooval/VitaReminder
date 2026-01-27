@@ -67,7 +67,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 R.id.navigation_today -> true
                 else -> {
-                    Toast.makeText(this, "Función no implementada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.msj_en_desarrollo), Toast.LENGTH_SHORT).show()
                     false
                 }
             }
@@ -84,7 +84,6 @@ class DashboardActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_profile -> {
-                // Buscamos la vista del ícono para que el menú aparezca justo ahí
                 val view = findViewById<View>(R.id.action_profile)
                 mostrarMenuPerfil(view)
                 true
@@ -100,7 +99,7 @@ class DashboardActivity : AppCompatActivity() {
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_edit_profile -> {
-                    Toast.makeText(this, "Editar Perfil en desarrollo", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.editar_perfil), Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.action_logout -> {

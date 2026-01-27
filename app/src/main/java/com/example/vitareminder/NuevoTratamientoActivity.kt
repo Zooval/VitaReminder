@@ -49,10 +49,13 @@ class NuevoTratamientoActivity : AppCompatActivity() {
 
             } else {
                 if (treatmentName.isBlank()) {
-                    treatmentNameInputLayout.error = "El nombre del tratamiento no puede estar vacío"
+                    treatmentNameInputLayout.error = getString(R.string.error_tratamiento_vacio)
+                } else {
+                    treatmentNameInputLayout.error = null
                 }
+                
                 if (selectedCategories.isEmpty()) {
-                    Toast.makeText(this, "Selecciona al menos una categoría", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.error_seleccion_categoria), Toast.LENGTH_SHORT).show()
                 }
             }
         }

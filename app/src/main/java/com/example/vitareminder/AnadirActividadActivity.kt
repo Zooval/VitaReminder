@@ -3,7 +3,6 @@ package com.example.vitareminder
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,9 +37,12 @@ class AnadirActividadActivity : AppCompatActivity() {
 
             // Validación
             if (nombre.isEmpty() || duracion.isEmpty() || frecuencia.isEmpty()) {
-                if (nombre.isEmpty()) nameInputLayout.error = "Campo requerido" else nameInputLayout.error = null
-                if (duracion.isEmpty()) durationInputLayout.error = "Campo requerido" else durationInputLayout.error = null
-                if (frecuencia.isEmpty()) frequencyInputLayout.error = "Campo requerido" else frequencyInputLayout.error = null
+                val errorMsg = getString(R.string.error_campo_requerido)
+                
+                nameInputLayout.error = if (nombre.isEmpty()) errorMsg else null
+                durationInputLayout.error = if (duracion.isEmpty()) errorMsg else null
+                frequencyInputLayout.error = if (frecuencia.isEmpty()) errorMsg else null
+                
                 return@setOnClickListener
             }
 

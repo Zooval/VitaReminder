@@ -16,6 +16,12 @@
     <string name="sintomas">Síntomas</string>
     <string name="cita_con_el_dr">Cita con el Dr</string>
     <string name="continuar">Continuar</string>
+    <string name="error_tratamiento_vacio">El nombre del tratamiento no puede estar vacío</string>
+    <string name="error_seleccion_categoria">Por favor, selecciona al menos una categoría</string>
+    <string name="msj_en_desarrollo">Funcionalidad en desarrollo</string>
+
+    <!-- Pantalla Común / Genérica -->
+    <string name="error_campo_requerido">Campo requerido</string>
 
     <!-- Pantalla Añadir Medicamento -->
     <string name="a_adir_medicamento">Añadir Medicamento</string>
@@ -35,6 +41,10 @@
     <string name="olvidaste_tu_contrasena">¿Olvidaste tu contraseña?</string>
     <string name="continuar_con_google">Continuar con Google</string>
     <string name="registrate_link">Regístrate</string>
+    <string name="error_email_vacio">El email no puede estar vacío</string>
+    <string name="error_password_vacio">La contraseña no puede estar vacía</string>
+    <string name="msj_iniciando_sesion">Iniciando sesión...</string>
+    <string name="error_autenticacion">Error de autenticación: %1$s</string>
 
     <!-- Pantalla de Registro -->
     <string name="registrate_titulo">Regístrate</string>
@@ -44,5 +54,21 @@
     <string name="confirmar_contrasena">Confirmar contraseña</string>
     <string name="o_puedes">O puedes</string>
     <string name="ingresar_link">Ingresar</string>
+    <string name="error_username_vacio">Ingresa un nombre de usuario</string>
+    <string name="error_email_obligatorio">El email es obligatorio</string>
+    <string name="error_email_invalido">Formato de email inválido</string>
+    <string name="error_password_corto">Mínimo 6 caracteres</string>
+    <string name="error_passwords_no_coinciden">Las contraseñas no coinciden</string>
+    <string name="msj_registrando">Registrando...</string>
+    <string name="error_registro">Error: %1$s</string>
+
+    <!-- Dashboard y Menús -->
+    <string name="para_hoy">Para hoy</string>
+    <string name="progreso">Progreso</string>
+    <string name="historial">Historial</string>
+    <string name="tratamientos">Tratamientos</string>
+    <string name="perfil">Perfil</string>
+    <string name="editar_perfil">Editar Perfil</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
 
 </resources>

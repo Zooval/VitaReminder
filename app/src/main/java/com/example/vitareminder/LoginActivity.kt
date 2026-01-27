@@ -42,12 +42,12 @@ class LoginActivity : AppCompatActivity() {
             var isValid = true
 
             if (email.isEmpty()) {
-                emailInputLayout.error = "El email no puede estar vacío"
+                emailInputLayout.error = getString(R.string.error_email_vacio)
                 isValid = false
             }
 
             if (password.isEmpty()) {
-                passwordInputLayout.error = "La contraseña no puede estar vacía"
+                passwordInputLayout.error = getString(R.string.error_password_vacio)
                 isValid = false
             }
 
@@ -58,14 +58,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUsuario(email: String, pass: String) {
-        Toast.makeText(this, "Iniciando sesión...", Toast.LENGTH_SHORT).show()
-        
+        Toast.makeText(this, getString(R.string.msj_iniciando_sesion), Toast.LENGTH_SHORT).show()
+
         auth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     irADashboard()
                 } else {
-                    Toast.makeText(this, "Error de autenticación: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    val errorMsg = getString(R.string.error_autenticacion, task.exception?.message)
+                    Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
                 }
             }
     }

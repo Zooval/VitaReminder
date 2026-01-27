@@ -36,16 +36,15 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
             // Validación simple
             if (nombre.isNotEmpty() && tipo.isNotEmpty() && dosis.isNotEmpty() && horario.isNotEmpty()) {
                 // Crear el objeto Medicamento con los datos
-                // Crear el objeto Medicamento
                 val nuevoMedicamento = Medicamento(nombre, tipo, dosis, horario)
 
                 // Recuperar categorías seleccionadas
                 val categories = intent.getStringArrayListExtra("CATEGORIES") ?: arrayListOf()
 
-                //Ya completamos MEDICAMENTO, la quitamos
+                // Ya completamos MEDICAMENTO, la quitamos
                 categories.remove("MEDICAMENTO")
 
-                //Decidir a dónde ir ahora
+                // Decidir a dónde ir ahora
                 val nextIntent = when {
                     categories.contains("ACTIVIDAD") ->
                         Intent(this, AnadirActividadActivity::class.java)
@@ -67,11 +66,13 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
 
 
             } else {
-                // Muestra un error si algún campo está vacío
-                if (nombre.isEmpty()) nameInputLayout.error = "Campo requerido" else nameInputLayout.error = null
-                if (tipo.isEmpty()) typeInputLayout.error = "Campo requerido" else typeInputLayout.error = null
-                if (dosis.isEmpty()) doseInputLayout.error = "Campo requerido" else doseInputLayout.error = null
-                if (horario.isEmpty()) scheduleInputLayout.error = "Campo requerido" else scheduleInputLayout.error = null
+                // Muestra un error si algún campo está vacío usando recursos de strings
+                val errorMsg = getString(R.string.error_campo_requerido)
+                
+                nameInputLayout.error = if (nombre.isEmpty()) errorMsg else null
+                typeInputLayout.error = if (tipo.isEmpty()) errorMsg else null
+                doseInputLayout.error = if (dosis.isEmpty()) errorMsg else null
+                scheduleInputLayout.error = if (horario.isEmpty()) errorMsg else null
             }
         }
     }

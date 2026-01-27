@@ -64,25 +64,26 @@ class RegisterActivity : AppCompatActivity() {
             var isValid = true
 
             if (username.isEmpty()) {
-                usernameInputLayout.error = "Ingresa un nombre de usuario"
+                usernameInputLayout.error = getString(R.string.error_username_vacio)
+
                 isValid = false
             }
 
             if (email.isEmpty()) {
-                emailInputLayout.error = "El email es obligatorio"
+                emailInputLayout.error = getString(R.string.error_email_obligatorio)
                 isValid = false
             } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                emailInputLayout.error = "Formato de email inválido"
+                emailInputLayout.error = getString(R.string.error_email_invalido)
                 isValid = false
             }
 
             if (password.length < 6) {
-                passwordInputLayout.error = "Mínimo 6 caracteres"
+                passwordInputLayout.error = getString(R.string.error_password_corto)
                 isValid = false
             }
 
             if (password != confirmPassword) {
-                confirmPasswordInputLayout.error = "Las contraseñas no coinciden"
+                confirmPasswordInputLayout.error = getString(R.string.error_passwords_no_coinciden)
                 isValid = false
             }
 
@@ -93,21 +94,18 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registrarUsuario(email: String, pass: String, username: String) {
-        // Mostrar un Toast o ProgressDialog (opcional) para indicar carga
-        Toast.makeText(this, "Registrando...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.msj_registrando), Toast.LENGTH_SHORT).show()
 
         auth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     
-                    // Actualizar el perfil del usuario con el nombre de usuario
                     val profileUpdates = userProfileChangeRequest {
                         displayName = username
                     }
                     
                     user?.updateProfile(profileUpdates)?.addOnCompleteListener {
-                        // Guardar datos adicionales en Firestore (opcional pero recomendado)
                         val userData = hashMapOf(
                             "username" to username,
                             "email" to email,
@@ -117,24 +115,23 @@ class RegisterActivity : AppCompatActivity() {
                         user.uid.let { uid ->
                             db.collection("users").document(uid).set(userData)
                                 .addOnSuccessListener {
-                                    irANuevoTratamiento()
+                                    irADashboard()
                                 }
                                 .addOnFailureListener {
-                                    // Aunque falle Firestore, el usuario ya se creó en Auth
-                                    irANuevoTratamiento()
+                                    irADashboard()
                                 }
                         }
                     }
 
                 } else {
-                    // Si el registro falla, mostrar el error
-                    Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    val errorMsg = getString(R.string.error_registro, task.exception?.message)
+                    Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
                 }
             }
     }
 
-    private fun irANuevoTratamiento() {
-        val intent = Intent(this, NuevoTratamientoActivity::class.java)
+    private fun irADashboard() {
+        val intent = Intent(this, DashboardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
