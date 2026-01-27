@@ -27,8 +27,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
         val treatmentNameInputLayout: TextInputLayout = findViewById(R.id.treatmentNameInputLayout)
         val cbMedicamento: CheckBox = findViewById(R.id.cbMedicamento)
         val cbActividad: CheckBox = findViewById(R.id.cbActividad)
-        val cbMediciones: CheckBox = findViewById(R.id.cbMediciones)
-        val cbSintomas: CheckBox = findViewById(R.id.cbSintomas)
         val cbCitaDr: CheckBox = findViewById(R.id.cbCitaDr)
         val continueButton: Button = findViewById(R.id.continueButton)
 
@@ -36,37 +34,28 @@ class NuevoTratamientoActivity : AppCompatActivity() {
         continueButton.setOnClickListener {
             val treatmentName = treatmentNameInputLayout.editText?.text.toString().trim()
 
-            // Verificar si al menos una categoría está seleccionada
-            val isAnyCategorySelected = cbMedicamento.isChecked || cbActividad.isChecked ||
-                    cbMediciones.isChecked || cbSintomas.isChecked ||
-                    cbCitaDr.isChecked
+            val selectedCategories = ArrayList<String>()
 
-            // Validación básica
-            if (treatmentName.isNotBlank() && isAnyCategorySelected) {
+            if (cbMedicamento.isChecked) selectedCategories.add("MEDICAMENTO")
+            if (cbActividad.isChecked) selectedCategories.add("ACTIVIDAD")
+            if (cbCitaDr.isChecked) selectedCategories.add("CITA")
 
-                // Si seleccionó medicamento, vamos a esa pantalla
-                if (cbMedicamento.isChecked) {
-                    val intent = Intent(this, AnadirMedicamentoActivity::class.java)
-                    // Podrías pasar el nombre del tratamiento a la siguiente pantalla
-                    intent.putExtra("TREATMENT_NAME", treatmentName)
-                    startActivity(intent)
-                } else {
-                    // Si seleccionó otras cosas pero no medicamento, por ahora mostramos un mensaje
-                    Toast.makeText(this, "Funcionalidad para otras categorías en desarrollo", Toast.LENGTH_SHORT).show()
-                }
+            if (treatmentName.isNotBlank() && selectedCategories.isNotEmpty()) {
+
+                val intent = Intent(this, AnadirMedicamentoActivity::class.java)
+                intent.putExtra("TREATMENT_NAME", treatmentName)
+                intent.putStringArrayListExtra("CATEGORIES", selectedCategories)
+                startActivity(intent)
 
             } else {
-                // Manejo de errores visuales
                 if (treatmentName.isBlank()) {
                     treatmentNameInputLayout.error = "El nombre del tratamiento no puede estar vacío"
-                } else {
-                    treatmentNameInputLayout.error = null
                 }
-
-                if (!isAnyCategorySelected) {
-                    Toast.makeText(this, "Por favor, selecciona al menos una categoría", Toast.LENGTH_SHORT).show()
+                if (selectedCategories.isEmpty()) {
+                    Toast.makeText(this, "Selecciona al menos una categoría", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
     }
 }

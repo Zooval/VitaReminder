@@ -11,7 +11,7 @@
     <string name="nombre_del_tratamiento">Nombre del tratamiento:</string>
     <string name="nombre_del_tratamiento_hint">Nombre del tratamiento</string>
     <string name="medicamento">Medicamento</string>
-    <string name="actividad">Actividad</string>
+    <string name="actividad">Actividad física</string>
     <string name="mediciones">Mediciones</string>
     <string name="sintomas">Síntomas</string>
     <string name="cita_con_el_dr">Cita con el Dr</string>

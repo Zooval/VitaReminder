@@ -80,19 +80,6 @@
             android:text="@string/actividad"
             android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/cbMediciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/mediciones"
-            android:textSize="16sp" />
-
-        <CheckBox
-            android:id="@+id/cbSintomas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sintomas"
-            android:textSize="16sp" />
 
         <CheckBox
             android:id="@+id/cbCitaDr"

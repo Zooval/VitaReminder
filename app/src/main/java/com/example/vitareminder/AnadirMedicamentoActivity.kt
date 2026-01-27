@@ -36,15 +36,35 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
             // Validación simple
             if (nombre.isNotEmpty() && tipo.isNotEmpty() && dosis.isNotEmpty() && horario.isNotEmpty()) {
                 // 1. Crear el objeto Medicamento con los datos
+                // 1️⃣ Crear el objeto Medicamento
                 val nuevoMedicamento = Medicamento(nombre, tipo, dosis, horario)
 
-                // 2. Crear el Intent y pasar el objeto
-                val intent = Intent(this, DashboardActivity::class.java).apply {
-                    putExtra("EXTRA_MEDICAMENTO", nuevoMedicamento)
-                    // Limpia las actividades anteriores para que no se pueda volver
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                // Recuperar categorías seleccionadas
+                val categories = intent.getStringArrayListExtra("CATEGORIES") ?: arrayListOf()
+
+                //Ya completamos MEDICAMENTO, la quitamos
+                categories.remove("MEDICAMENTO")
+
+                //Decidir a dónde ir ahora
+                val nextIntent = when {
+                    categories.contains("ACTIVIDAD") ->
+                        Intent(this, AnadirActividadActivity::class.java)
+
+                    categories.contains("CITA") ->
+                        Intent(this, AnadirCitaActivity::class.java)
+
+                    else ->
+                        Intent(this, DashboardActivity::class.java)
                 }
-                startActivity(intent)
+
+// 5️⃣ Pasar datos a la siguiente pantalla
+                nextIntent.putExtra("EXTRA_MEDICAMENTO", nuevoMedicamento)
+                nextIntent.putStringArrayListExtra("CATEGORIES", categories)
+
+// 6️⃣ Ir a la siguiente pantalla
+                startActivity(nextIntent)
+                finish()
+
 
             } else {
                 // Muestra un error si algún campo está vacío

@@ -117,11 +117,11 @@ class RegisterActivity : AppCompatActivity() {
                         user.uid.let { uid ->
                             db.collection("users").document(uid).set(userData)
                                 .addOnSuccessListener {
-                                    irADashboard()
+                                    irANuevoTratamiento()
                                 }
                                 .addOnFailureListener {
                                     // Aunque falle Firestore, el usuario ya se creó en Auth
-                                    irADashboard()
+                                    irANuevoTratamiento()
                                 }
                         }
                     }
@@ -133,8 +133,8 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun irADashboard() {
-        val intent = Intent(this, DashboardActivity::class.java)
+    private fun irANuevoTratamiento() {
+        val intent = Intent(this, NuevoTratamientoActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

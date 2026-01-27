@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VitaReminder">
         <activity
+            android:name=".AnadirCitaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnadirActividadActivity"
+            android:exported="false" />
+        <activity
             android:name=".TreatmentDetailActivity"
             android:exported="false" />
         <activity
