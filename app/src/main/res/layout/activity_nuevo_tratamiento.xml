@@ -45,27 +45,61 @@
             android:hint="@string/nombre_del_tratamiento_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/selectCategoriesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Selecciona las categorías:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentNameInputLayout" />
+
     <LinearLayout
-        android:id="@+id/optionsContainer"
+        android:id="@+id/categoriesContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/treatmentNameInputLayout"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/selectCategoriesLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMedicamento"
+        <CheckBox
+            android:id="@+id/cbMedicamento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/medicamento"
-            android:checkable="true"
-            app:backgroundTint="@color/multiselect_button_background"
-            android:textColor="@color/multiselect_button_text"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp" />
 
-        <!-- Aquí irían los otros botones (Actividad, Mediciones, etc.) deshabilitados o con funcionalidad futura -->
+        <CheckBox
+            android:id="@+id/cbActividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/actividad"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbMediciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mediciones"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbSintomas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sintomas"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbCitaDr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cita_con_el_dr"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

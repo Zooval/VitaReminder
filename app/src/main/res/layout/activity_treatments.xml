@@ -41,7 +41,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTratamientosTitle" />
 
     <!-- En una app real, esto sería un RecyclerView -->
-    <!-- En una app real, esto sería un RecyclerView -->
     <LinearLayout
         android:id="@+id/treatmentsContainer"
         android:layout_width="0dp"
@@ -128,6 +127,16 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnNuevoTratamiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nuevo Tratamiento"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnVolver"

@@ -1,5 +1,6 @@
 package com.example.vitareminder
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +18,12 @@ class TreatmentsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Dentro del método onCreate de TreatmentsActivity.kt
+
+        val btnNuevoTratamiento: Button = findViewById(R.id.btnNuevoTratamiento)
+        btnNuevoTratamiento.setOnClickListener {
+            val intent = Intent(this, NuevoTratamientoActivity::class.java)
+            startActivity(intent)
+        }
 
         val btnVolver: Button = findViewById(R.id.btnVolver)
         btnVolver.setOnClickListener {
