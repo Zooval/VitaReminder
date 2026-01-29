@@ -1,4 +1,4 @@
-package com.example.vitareminder
+package com.example.vitareminder.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.vitareminder.view.DashboardActivity
+import com.example.vitareminder.R
+import com.example.vitareminder.model.Medicamento
 import com.google.android.material.textfield.TextInputLayout
 
 class AnadirMedicamentoActivity : AppCompatActivity() {
@@ -20,7 +23,6 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
             insets
         }
 
-        // --- INICIO DE LA LÓGICA ---
         val nameInputLayout: TextInputLayout = findViewById(R.id.nameInputLayout)
         val typeInputLayout: TextInputLayout = findViewById(R.id.typeInputLayout)
         val doseInputLayout: TextInputLayout = findViewById(R.id.doseInputLayout)
@@ -68,7 +70,7 @@ class AnadirMedicamentoActivity : AppCompatActivity() {
             } else {
                 // Muestra un error si algún campo está vacío usando recursos de strings
                 val errorMsg = getString(R.string.error_campo_requerido)
-                
+
                 nameInputLayout.error = if (nombre.isEmpty()) errorMsg else null
                 typeInputLayout.error = if (tipo.isEmpty()) errorMsg else null
                 doseInputLayout.error = if (dosis.isEmpty()) errorMsg else null

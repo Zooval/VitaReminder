@@ -1,4 +1,4 @@
-package com.example.vitareminder
+package com.example.vitareminder.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

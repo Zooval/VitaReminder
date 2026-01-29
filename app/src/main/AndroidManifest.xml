@@ -12,22 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VitaReminder">
         <activity
-            android:name=".AnadirCitaActivity"
+            android:name=".view.AnadirCitaActivity"
             android:exported="false" />
         <activity
-            android:name=".AnadirActividadActivity"
+            android:name=".view.AnadirActividadActivity"
             android:exported="false" />
         <activity
-            android:name=".TreatmentDetailActivity"
+            android:name=".view.TreatmentsActivity"
             android:exported="false" />
         <activity
-            android:name=".TreatmentsActivity"
+            android:name=".view.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,16 +33,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".view.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".AnadirMedicamentoActivity"
+            android:name=".view.AnadirMedicamentoActivity"
             android:exported="false" />
         <activity
-            android:name=".NuevoTratamientoActivity"
+            android:name=".view.NuevoTratamientoActivity"
             android:exported="false" />
     </application>
 
