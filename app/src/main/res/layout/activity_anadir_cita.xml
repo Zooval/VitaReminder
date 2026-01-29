@@ -8,7 +8,6 @@
     android:padding="16dp"
     tools:context=".view.AnadirCitaActivity">
 
-    <!-- Título -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
@@ -20,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Subtítulo -->
     <TextView
         android:id="@+id/subtitleTextView"
         android:layout_width="wrap_content"
@@ -31,7 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
-    <!-- Doctor -->
     <TextView
         android:id="@+id/doctorLabel"
         android:layout_width="wrap_content"
@@ -58,7 +55,6 @@
             android:hint="Ej. Dr. Pérez" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Fecha -->
     <TextView
         android:id="@+id/dateLabel"
         android:layout_width="wrap_content"
@@ -80,14 +76,14 @@
         app:layout_constraintTop_toBottomOf="@id/dateLabel">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ej. 12/10/2026"
-            android:focusable="true"
+            android:hint="Seleccionar fecha"
+            android:focusable="false"
             android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Hora -->
     <TextView
         android:id="@+id/timeLabel"
         android:layout_width="wrap_content"
@@ -109,14 +105,14 @@
         app:layout_constraintTop_toBottomOf="@id/timeLabel">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/timeEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ej. 10:30 AM"
-            android:focusable="true"
+            android:hint="Seleccionar hora"
+            android:focusable="false"
             android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botón continuar -->
     <Button
         android:id="@+id/continueButton"
         android:layout_width="wrap_content"

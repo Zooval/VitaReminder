@@ -29,11 +29,19 @@
     <string name="nombre">Nombre*</string>
     <string name="nombre_hint">Nombre</string>
     <string name="tipo">Tipo*</string>
-    <string name="tipo_hint">Tipo</string>
+    <string name="tipo_hint">Selecciona un tipo</string>
     <string name="dosis">Dosis*</string>
-    <string name="dosis_hint">Dosis</string>
+    <string name="dosis_hint">Selecciona unidad</string>
     <string name="horario">Horario*</string>
-    <string name="horario_hint">Horario</string>
+    <string name="horario_hint">Seleccionar hora</string>
+    
+    <!-- Tipos de medicamento -->
+    <string name="pastilla">Pastilla</string>
+    <string name="jarabe">Jarabe</string>
+    <string name="inyeccion">Inyección</string>
+    <string name="capsula">Cápsula</string>
+    <string name="gotas">Gotas</string>
+    <string name="crema">Crema</string>
 
     <!-- Pantalla de Login -->
     <string name="ingresa_tu_email">Ingresa tu email</string>

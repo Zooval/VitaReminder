@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -17,6 +18,8 @@ import com.example.vitareminder.view.MainActivity
 import com.example.vitareminder.R
 import com.example.vitareminder.view.TreatmentsActivity
 import com.example.vitareminder.contract.DashboardContract
+import com.example.vitareminder.model.Actividad
+import com.example.vitareminder.model.Cita
 import com.example.vitareminder.model.Medicamento
 import com.example.vitareminder.presenter.DashboardActivityLogic
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,7 +45,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
 
         medicamentosContainer = findViewById(R.id.medicamentosContainer)
 
-        // Obtener extra (la View puede leer intent extras)
+        // Obtener extras
         val medicamento = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("EXTRA_MEDICAMENTO", Medicamento::class.java)
         } else {
@@ -50,8 +53,22 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
             intent.getParcelableExtra<Medicamento>("EXTRA_MEDICAMENTO")
         }
 
+        val actividad = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("EXTRA_ACTIVIDAD", Actividad::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Actividad>("EXTRA_ACTIVIDAD")
+        }
+
+        val cita = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("EXTRA_CITA", Cita::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Cita>("EXTRA_CITA")
+        }
+
         // Delegar al logic
-        logic.onStart(medicamento)
+        logic.onStart(medicamento, actividad, cita)
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.selectedItemId = R.id.navigation_today
@@ -68,10 +85,47 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         val tvNombre: TextView = itemView.findViewById(R.id.tvMedicamentoNombre)
         val tvDosis: TextView = itemView.findViewById(R.id.tvMedicamentoDosis)
         val tvHorario: TextView = itemView.findViewById(R.id.tvMedicamentoHorario)
+        val iconInfo: ImageView = itemView.findViewById(R.id.iconInfo)
 
+        iconInfo.setImageResource(R.drawable.medicine) // Icono de medicina
         tvNombre.text = medicamento.nombre
         tvDosis.text = "${medicamento.tipo}, ${medicamento.dosis}"
         tvHorario.text = medicamento.horario
+
+        medicamentosContainer.addView(itemView)
+    }
+
+    override fun showActividad(actividad: Actividad) {
+        val itemView = LayoutInflater.from(this)
+            .inflate(R.layout.item_medicamento, medicamentosContainer, false)
+
+        val tvNombre: TextView = itemView.findViewById(R.id.tvMedicamentoNombre)
+        val tvDosis: TextView = itemView.findViewById(R.id.tvMedicamentoDosis)
+        val tvHorario: TextView = itemView.findViewById(R.id.tvMedicamentoHorario)
+        val iconInfo: ImageView = itemView.findViewById(R.id.iconInfo)
+
+        iconInfo.setImageResource(R.drawable.progress) // Icono de actividad/progreso
+        tvNombre.text = actividad.nombre
+        tvDosis.text = "${actividad.frecuencia}, ${actividad.duracion}"
+        tvHorario.text = "" // Las actividades pueden no tener una hora fija única aquí
+        tvHorario.visibility = View.GONE
+
+        medicamentosContainer.addView(itemView)
+    }
+
+    override fun showCita(cita: Cita) {
+        val itemView = LayoutInflater.from(this)
+            .inflate(R.layout.item_medicamento, medicamentosContainer, false)
+
+        val tvNombre: TextView = itemView.findViewById(R.id.tvMedicamentoNombre)
+        val tvDosis: TextView = itemView.findViewById(R.id.tvMedicamentoDosis)
+        val tvHorario: TextView = itemView.findViewById(R.id.tvMedicamentoHorario)
+        val iconInfo: ImageView = itemView.findViewById(R.id.iconInfo)
+
+        iconInfo.setImageResource(android.R.drawable.ic_menu_myplaces) // Icono de cita/lugar
+        tvNombre.text = cita.doctor
+        tvDosis.text = cita.fecha
+        tvHorario.text = cita.hora
 
         medicamentosContainer.addView(itemView)
     }

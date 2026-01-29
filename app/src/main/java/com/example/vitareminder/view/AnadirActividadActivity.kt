@@ -2,6 +2,8 @@ package com.example.vitareminder.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,9 @@ class AnadirActividadActivity : AppCompatActivity(), AnadirActividadContract.Vie
     private lateinit var durationInputLayout: TextInputLayout
     private lateinit var frequencyInputLayout: TextInputLayout
     private lateinit var continueButton: Button
+    
+    private lateinit var durationAutoComplete: AutoCompleteTextView
+    private lateinit var frequencyAutoComplete: AutoCompleteTextView
 
     private var categories: ArrayList<String> = arrayListOf()
     private var medicamento: Medicamento? = null
@@ -46,7 +51,20 @@ class AnadirActividadActivity : AppCompatActivity(), AnadirActividadContract.Vie
         nameInputLayout = findViewById(R.id.activityNameInputLayout)
         durationInputLayout = findViewById(R.id.activityDurationInputLayout)
         frequencyInputLayout = findViewById(R.id.activityFrequencyInputLayout)
+        
+        durationAutoComplete = findViewById(R.id.durationAutoComplete)
+        frequencyAutoComplete = findViewById(R.id.frequencyAutoComplete)
+        
         continueButton = findViewById(R.id.continueButton)
+
+        // --- CONFIGURACIÓN DE DESPLEGABLES ---
+        val duraciones = arrayOf("15 min", "30 min", "45 min", "1 hora", "1.5 horas", "2 horas")
+        val adapterDuracion = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, duraciones)
+        durationAutoComplete.setAdapter(adapterDuracion)
+
+        val frecuencias = arrayOf("Diariamente", "3 veces por semana", "Fines de semana", "Cada 2 días")
+        val adapterFrecuencia = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, frecuencias)
+        frequencyAutoComplete.setAdapter(adapterFrecuencia)
 
         // Recuperar datos previos
         categories = intent.getStringArrayListExtra("CATEGORIES") ?: arrayListOf()
@@ -55,8 +73,8 @@ class AnadirActividadActivity : AppCompatActivity(), AnadirActividadContract.Vie
         continueButton.setOnClickListener {
             logic.onContinueClicked(
                 nombre = nameInputLayout.editText?.text?.toString().orEmpty(),
-                duracion = durationInputLayout.editText?.text?.toString().orEmpty(),
-                frecuencia = frequencyInputLayout.editText?.text?.toString().orEmpty(),
+                duracion = durationAutoComplete.text.toString(),
+                frecuencia = frequencyAutoComplete.text.toString(),
                 categories = categories,
                 medicamento = medicamento
             )

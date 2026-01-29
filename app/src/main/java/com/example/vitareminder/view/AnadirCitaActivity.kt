@@ -1,7 +1,10 @@
 package com.example.vitareminder.view
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +17,9 @@ import com.example.vitareminder.model.Actividad
 import com.example.vitareminder.model.Cita
 import com.example.vitareminder.model.Medicamento
 import com.example.vitareminder.presenter.AnadirCitaActivityLogic
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.util.Calendar
 
 class AnadirCitaActivity : AppCompatActivity(), AnadirCitaContract.View {
 
@@ -23,6 +28,10 @@ class AnadirCitaActivity : AppCompatActivity(), AnadirCitaContract.View {
     private lateinit var doctorInputLayout: TextInputLayout
     private lateinit var dateInputLayout: TextInputLayout
     private lateinit var timeInputLayout: TextInputLayout
+    
+    private lateinit var dateEditText: TextInputEditText
+    private lateinit var timeEditText: TextInputEditText
+    
     private lateinit var continueButton: Button
 
     private var medicamento: Medicamento? = null
@@ -44,7 +53,38 @@ class AnadirCitaActivity : AppCompatActivity(), AnadirCitaContract.View {
         doctorInputLayout = findViewById(R.id.doctorInputLayout)
         dateInputLayout = findViewById(R.id.dateInputLayout)
         timeInputLayout = findViewById(R.id.timeInputLayout)
+        
+        dateEditText = findViewById(R.id.dateEditText)
+        timeEditText = findViewById(R.id.timeEditText)
+        
         continueButton = findViewById(R.id.continueButton)
+
+        // --- SELECTOR DE FECHA ---
+        dateEditText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                val dateFormatted = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear)
+                dateEditText.setText(dateFormatted)
+            }, year, month, day)
+            datePickerDialog.show()
+        }
+
+        // --- SELECTOR DE HORA ---
+        timeEditText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+                val timeFormatted = String.format("%02d:%02d", selectedHour, selectedMinute)
+                timeEditText.setText(timeFormatted)
+            }, hour, minute, true)
+            timePickerDialog.show()
+        }
 
         // Recuperar datos previos
         medicamento = intent.getParcelableExtra("EXTRA_MEDICAMENTO")
@@ -53,8 +93,8 @@ class AnadirCitaActivity : AppCompatActivity(), AnadirCitaContract.View {
         continueButton.setOnClickListener {
             logic.onContinueClicked(
                 doctor = doctorInputLayout.editText?.text?.toString().orEmpty(),
-                fecha = dateInputLayout.editText?.text?.toString().orEmpty(),
-                hora = timeInputLayout.editText?.text?.toString().orEmpty(),
+                fecha = dateEditText.text.toString(),
+                hora = timeEditText.text.toString(),
                 medicamento = medicamento,
                 actividad = actividad
             )
